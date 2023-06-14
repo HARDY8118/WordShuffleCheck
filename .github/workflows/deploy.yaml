@@ -8,8 +8,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-              with:
-                token: ${{secrets.AUTH}}
             - name: Setup Go
               uses: actions/setup-go@v4
               with:
@@ -28,5 +26,5 @@ jobs:
             - name: Commit
               run: git commit -m "Build"
             - name: Push
-              run: git push
+              run: git push https://HARDY8118@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@github.com/HARDY8118/WordShuffleCheck.git
             
