@@ -8,6 +8,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                token: ${{secrets.AUTH}}
             - name: Setup Go
               uses: actions/setup-go@v4
               with:
@@ -26,5 +28,5 @@ jobs:
             - name: Commit
               run: git commit -m "Build"
             - name: Push
-              run: git push -c http.extraheader="Authorization: Basic ${{AUTH}}"
+              run: git push
             
