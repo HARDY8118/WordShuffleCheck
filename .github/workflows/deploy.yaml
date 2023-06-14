@@ -26,5 +26,5 @@ jobs:
             - name: Commit
               run: git commit -m "Build"
             - name: Push
-              run: git push
+              run: git push -c http.extraheader="Authorization: Basic ${{AUTH}}"
             
