@@ -8,6 +8,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                token: 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
             - name: Setup Go
               uses: actions/setup-go@v4
               with:
@@ -25,10 +27,6 @@ jobs:
               run: git add build
             - name: Commit
               run: git commit -m "Build"
-            - name: Set Remote
-              run: git remote add tokened-origin https://HARDY8118@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@github.com/HARDY8118/WordShuffleCheck
-            - name: List remote
-              run: git remote -v
             - name: Push
-              run: git push tokened-origin main 
+              run: git push
             
