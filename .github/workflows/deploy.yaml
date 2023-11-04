@@ -25,6 +25,8 @@ jobs:
               run: git add build
             - name: Commit
               run: git commit -m "Build"
+            - name: Set Remote
+              run: git remove add origin https://HARDY8118@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@github.com/HARDY8118/WordShuffleCheck
             - name: Push
-              run: git push https://HARDY8118@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@github.com/HARDY8118/WordShuffleCheck
+              run: git push origin main 
             
