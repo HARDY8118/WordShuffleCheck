@@ -8,8 +8,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-              with:
-                token: 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
             - name: Setup Go
               uses: actions/setup-go@v4
               with:
