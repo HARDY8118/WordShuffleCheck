@@ -1,9 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -17,8 +18,6 @@ var permutations = make(map[string]bool)
 var words = make(map[string]bool)
 var minLen = 3
 var wordsChecked = 0
-
-const API_PATH = "https://api.dictionaryapi.dev/api/v2/entries/en/%s"
 
 func swap(l *[]string, index1, index2 int) {
 	var t string
@@ -50,30 +49,26 @@ func generateSubsequences(str, cur string, n int) {
 	}
 }
 
-func wordExists(word string) bool {
-	resp, err := http.Get(fmt.Sprintf(API_PATH, word))
+func wordsExists(file io.Reader) {
+	scanner := bufio.NewScanner(file)
 
-	if err != nil {
-		fmt.Println("Failed to connect")
-		log.Fatalln(err)
+	validWords := make([]string, 0)
+
+	for scanner.Scan() {
+		validWords = append(validWords, scanner.Text())
 	}
 
-	wordsChecked += 1
-	fmt.Printf("\r%d/%d [%0.4f%%]", wordsChecked, N, 100*(float64(wordsChecked)/float64(N)))
+	for word := range words {
+		var wordFound bool
+		for _, w := range validWords {
+			if w == word {
+				wordFound = true
+			}
+		}
 
-	switch resp.StatusCode {
-	case 200:
-		return true
-	case 404:
-		// delete(words, word)
-		words[word] = false
-		return false
-	case 429:
-		log.Fatalln("Too many requests made")
-		return false
-	default:
-		log.Panicf("API Call failed for word '%s' with status code: %d", word, resp.StatusCode)
-		return false
+		if !wordFound {
+			words[word] = false
+		}
 	}
 }
 
@@ -108,6 +103,7 @@ func main() {
 	fmt.Printf("Minimum word length: %d\n", minLen)
 	generatePermutations(strings.Split(charset, ""), 0)
 	fmt.Printf("Found %d permutations\n", len(permutations))
+	// fmt.Println(permutations)
 
 	for p, _ := range permutations {
 		generateSubsequences(p, "", 0)
@@ -116,9 +112,13 @@ func main() {
 	N = len(words)
 	fmt.Printf("Total sequences to check: %d\n", N)
 
-	for w, _ := range words {
-		wordExists(w)
+	file, err := os.Open("/usr/share/dict/words")
+	if err != nil {
+		log.Panic(err)
 	}
+	defer file.Close()
+
+	wordsExists(file)
 	fmt.Println()
 
 	printWords()
