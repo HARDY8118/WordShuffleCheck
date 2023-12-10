@@ -15,6 +15,10 @@ jobs:
           git config --global user.name 'Boyt'
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
           git config --global pull.rebase false
+      - name: Checkout release branch
+        run: git checkout release
+      - name: Pull from origin
+        run: git pull origin release
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
