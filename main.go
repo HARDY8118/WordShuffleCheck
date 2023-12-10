@@ -102,6 +102,9 @@ func main() {
 
 	if len(os.Args) > 1 {
 		minLen, _ = strconv.Atoi(os.Args[2])
+		if minLen > N {
+			log.Fatalln("Min lenght greater than charset size")
+		}
 	}
 
 	fmt.Printf("Minimum word length: %d\n", minLen)
