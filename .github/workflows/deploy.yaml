@@ -8,13 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Configure git
         run: |
           git config --global user.name 'Boyt'
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
           git config --global pull.rebase false
-      - name: Change to release branch
-        run: git checkout -b release_$(date +%Y-%m-%d-%H-%M)
+      - name: Checkout release branch
+        run: git checkout release
+      - name: Pull from origin
+        run: git pull origin release
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -33,4 +37,4 @@ jobs:
       - name: Commit built files
         run: git commit -m "Build"
       - name: Push to origin
-        run: git push origin release_$(date +%Y-%m-%d-%H-%M)
+        run: git push origin release
