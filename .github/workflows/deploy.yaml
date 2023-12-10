@@ -16,7 +16,7 @@ jobs:
       - name: Fetch from origin
         run: git fetch origin release
       - name: Pull from origin
-        run: git pull origin release
+        run: git pull origin main
       - name: Change to release branch
         run: git checkout release
       - name: Setup Go
