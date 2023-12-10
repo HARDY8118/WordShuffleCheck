@@ -15,8 +15,10 @@ jobs:
           git config --global pull.rebase false
       - name: Fetch from origin
         run: git fetch origin release
-      - name: Pull from origin
+      - name: Pull main from origin
         run: git pull origin main
+      - name: Pull release from origin
+        run: git pull origin release
       - name: Change to release branch
         run: git checkout release
       - name: Setup Go
