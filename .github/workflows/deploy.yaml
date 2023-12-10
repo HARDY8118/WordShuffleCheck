@@ -14,7 +14,7 @@ jobs:
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
       - name: Change to release branch
         run: git checkout -b release
-      - name: Pull origin
+      - name: Pull from origin
         run: git pull origin release
       - name: Setup Go
         uses: actions/setup-go@v4
