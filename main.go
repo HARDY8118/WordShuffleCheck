@@ -91,7 +91,11 @@ func printWords() {
 
 func main() {
 	if len(os.Args) < 2 {
+		fmt.Println("Usage: word <charset> <size>")
 		log.Fatalln("No charset provided")
+	} else if len(os.Args) < 3 {
+		fmt.Println("Usage: word <charset> <size>")
+		log.Fatalln("No min size provided")
 	}
 	charset = os.Args[1]
 	N = len(charset) - 1
