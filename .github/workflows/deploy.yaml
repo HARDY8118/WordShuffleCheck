@@ -12,6 +12,8 @@ jobs:
         run: |
           git config --global user.name 'Boyt'
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
+      - name: Change to release branch
+        run: git checkout -b release
       - name: Pull origin
         run: git pull origin release
       - name: Setup Go
@@ -23,8 +25,6 @@ jobs:
       - name: Build binaries
         run: ./build.sh
         shell: bash
-      - name: Change to release branch
-        run: git checkout -b release
       - name: Add built files
         run: git add build
       - name: Commit built files
