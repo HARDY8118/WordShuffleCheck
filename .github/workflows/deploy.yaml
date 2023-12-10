@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Configure git
+        run: |
+          git config --global user.name 'Boyt'
+          git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
+      - name: Pull origin
+        run: git pull origin release
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -17,10 +23,6 @@ jobs:
       - name: Build binaries
         run: ./build.sh
         shell: bash
-      - name: Configure git
-        run: |
-          git config --global user.name 'Boyt'
-          git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
       - name: Change to release branch
         run: git checkout -b release
       - name: Add built files
