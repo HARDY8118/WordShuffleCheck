@@ -30,6 +30,8 @@ jobs:
         shell: bash
       - name: Add built files
         run: git add build
+      - name: Check status
+        run: git status
       - name: Commit built files
         run: git commit -m "Build"
       - name: Push to origin
