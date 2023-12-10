@@ -12,6 +12,7 @@ jobs:
         run: |
           git config --global user.name 'Boyt'
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
+          git config --global pull.rebase false
       - name: Change to release branch
         run: git checkout -b release
       - name: Pull from origin
