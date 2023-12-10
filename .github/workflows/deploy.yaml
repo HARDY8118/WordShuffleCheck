@@ -13,10 +13,10 @@ jobs:
           git config --global user.name 'Boyt'
           git config --global user.email '5825564-HARDY8118@users.noreply.gitlab.com'
           git config --global pull.rebase false
-      - name: Delete previous release
-        run: git push origin --delete remote
+      - name: Fetch release branch from origin
+        run: git fetch origin release
       - name: Change to release branch
-        run: git checkout release
+        run: git checkout -b release
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -35,4 +35,4 @@ jobs:
       - name: Commit built files
         run: git commit -m "Build"
       - name: Push to origin
-        run: git push origin release
+        run: git push origin release_$(date +%Y-%m-%d-%H-%M)
